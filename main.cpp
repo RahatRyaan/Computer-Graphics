@@ -827,7 +827,7 @@ void Car(float Tx = 0, float Ty = 0, float m = 1, Color boatSails = {58, 59, 95}
 void display(){
    glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(255.0,0.0,1.0);
-
+	star();
 	 rightTillaL();
     rightWindmMill();
     rightBigHill1();
