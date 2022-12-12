@@ -8,6 +8,281 @@
 using namespace std;
 bool f=1;
 float pos1=0,pos2=400,speed1=2.9f, speed2=2.5f, spin=0.0f,sp1=2.0f;
+
+///Circle (Abir, Faisal Amin, id - 20-43206-1)
+void circle(GLfloat x, GLfloat y, GLfloat rad){
+    GLint triangle_amt=60,i;
+    GLfloat t_pi=2*PI;
+    glBegin(GL_TRIANGLE_FAN);
+    //glColor3ub(43,78,88);
+    glVertex2i(x,y);
+    for(i=0;i<=triangle_amt;i++){
+        GLfloat dx=rad*cos(i*t_pi/triangle_amt), dy=rad*sin(i*t_pi/triangle_amt);
+        ///cout<<"---"<<x<<" "<<y<<" "<<dx<<" "<<dy<<"---"<<endl;
+        glVertex2i(x+dx,y+dy);
+    }
+    glEnd();
+}
+///Big hill- Structure
+void hill_big(){
+    glBegin(GL_POLYGON);
+    //glColor3ub(96, 118, 130);
+    glVertex2i(70,70);
+    glVertex2i(200,225);
+    glVertex2i(330,70);
+    glEnd();
+    ///snow
+    glBegin(GL_POLYGON);
+    if(f)glColor3f(255,255,255);
+    else glColor3ub(172, 174, 176);
+    glVertex2i(200,225);
+    glVertex2i(230,190);
+    glVertex2i(220,180);
+    glVertex2i(200,190);
+    glVertex2i(190,180);
+    glVertex2i(170,190);
+    glEnd();
+
+}
+///Small_hill- Structure
+void hill_small(){
+    ///Hill_Small
+	glBegin(GL_POLYGON);
+    ///glColor3f(0.11, 0.23, 0.36);
+	glVertex2i(250, 100);
+	glVertex2i(310, 175);
+	glVertex2i(370, 100);
+	glEnd();
+
+    ///Hill_Small_Snow
+	glBegin(GL_POLYGON);
+    if(f)glColor3f(255,255,255);
+    else glColor3ub(172, 174, 176);
+    glVertex2i(290, 150);
+	glVertex2i(310, 175);
+	glVertex2i(330, 150);
+	glVertex2i(325, 140);
+	glVertex2i(310, 150);
+	glVertex2i(300, 140);
+	glEnd();
+}
+///Tilla Structure
+void tillaModel1(){
+
+	glBegin(GL_POLYGON);
+	if(f)glColor3f(0.1, 1.293, 0.0);
+	else glColor3ub(15, 59, 11);
+	glVertex2i(125, 70);
+	glVertex2i(150, 80);
+	glVertex2i(160, 90);
+	glVertex2i(170, 90);
+	glVertex2i(180, 100);
+	glVertex2i(190, 105);
+	glVertex2i(200, 108);
+	glVertex2i(300, 110);
+	glVertex2i(300, 70);
+	glEnd();
+}
+///Tilla Model 2- Structure
+void tillaModel2(){
+    if(f)glColor3f(0.1, 1.293, 0.0);
+	else glColor3ub(15, 59, 11);
+    glPushMatrix();
+    circle(430,90,30);
+    circle(420,87,30);
+    circle(410,80,30);
+    circle(400,80,30);
+    circle(390,70,30);
+    circle(445,80,30);
+    circle(455,75,30);
+    circle(465,70,30);
+    circle(470,65,30);
+    circle(480,60,30);
+    circle(485,55,20);
+    glPopMatrix();
+}
+
+void ground(){
+	glBegin(GL_POLYGON);
+    if(f)glColor3ub(34,139,34);
+    else glColor3ub(0,100,0);
+	glVertex2i(0, 220);
+	glVertex2i(0, 270);
+	glVertex2i(1000, 270);
+	glVertex2i(1000, 220);
+
+	glEnd();
+}
+
+
+///Windmill stand structure
+void Windmill_Stand_Model(){
+    glColor3f(0.38, 0.41, 0.36);
+    glBegin(GL_POLYGON);
+    glVertex2i(375, 100);
+    glVertex2i(380, 240);
+    glVertex2i(384, 240);
+    glVertex2i(390, 100);
+    glEnd();
+}
+///Windmill blade  Structure
+void Windmill_Blade(){
+
+    ///Blade_One
+    glPushMatrix();
+    glRotatef(spin,0,0,90);
+    glBegin(GL_POLYGON);
+    glVertex2i(-5, 0);
+    glVertex2i(-85, -36);
+    glVertex2i(-83, -37);
+    glVertex2i(-3, -8);
+    glEnd();
+    glPopMatrix();
+
+    ///Blade_Two
+    glPushMatrix();
+    glRotatef(spin,0,0,90);
+    glBegin(GL_POLYGON);
+    glVertex2i(0, 5);
+    glVertex2i(45, 70);
+    glVertex2i(50, 73);
+    glVertex2i(5, 0);
+    glEnd();
+    glPopMatrix();
+
+    ///Blade_Three
+    glPushMatrix();
+    glRotatef(spin,0,0,90);
+    glBegin(GL_POLYGON);
+    glVertex2i(68, -78);
+    glVertex2i(0,0);
+    glVertex2i(5, 5);
+    glVertex2i(70, -77);
+    glEnd();
+    glPopMatrix();
+
+}
+
+
+
+/// Windmill Structure
+void Windmill(){
+    ///Windmill_Stand
+    glColor3f(0.38, 0.41, 0.36);
+    glPushMatrix();
+    Windmill_Stand_Model();
+    glPopMatrix();
+
+    ///Windmill_Motor
+    if(f)glColor3f(0.11, 0.23, 0.36);
+    else glColor3ub(107, 130, 199);
+    circle(380,250,10);
+
+    ///Windmill_Rotary_Blades
+    if(f)glColor3f(0.11, 0.23, 0.36);
+    else glColor3ub(107, 130, 199);
+    glPushMatrix();
+    glTranslatef(380,251,0);
+    Windmill_Blade();
+    glPopMatrix();
+
+}
+///Object Creation
+
+///`Right Side_ Big Hill 1
+void rightBigHill1(){
+    glPushMatrix();
+    glTranslatef(600,150,0);
+    if(f)glColor3ub(96, 118, 130);
+    else glColor3ub(0,0,0);
+    hill_big();
+    glPopMatrix();
+}
+///Right Side- Big Hill 2
+void rightBigHill2(){
+    glPushMatrix();
+    if(f)glColor3ub(96, 118, 130);
+    else glColor3ub(31, 40, 66);
+    glTranslatef(550,130,0);
+    hill_big();
+    glPopMatrix();
+}
+///Left Side- Small Hill
+void leftSmallHill(){
+    glPushMatrix();
+    glTranslatef(0,120,0);
+    if(f)glColor3ub(96, 118, 130);
+    else glColor3ub(31, 40, 66);
+    hill_small();
+    glPopMatrix();
+}
+
+
+///Right Side- Tilla
+void rightTillaL(){
+    glPushMatrix();
+    glTranslatef(400,150,0);
+    tillaModel1();
+    glPopMatrix();
+}
+///Left Side- Tilla
+void leftTillaL(){
+    glPushMatrix();
+    glTranslatef(0,150,0);
+    tillaModel1();
+    glPopMatrix();
+}
+///Right Side- Tilla
+void rightTillaR(){
+    glPushMatrix();
+    glTranslatef(500,150,0);
+    tillaModel2();
+    glPopMatrix();
+}
+///Right Side- Wind Mill
+void rightWindmMill(){
+    glPushMatrix();
+    glTranslatef(530,150,0);
+    Windmill();
+    glPopMatrix();
+}
+///Left Side- Wind Mill
+void leftWindMill(){
+    glPushMatrix();
+    glTranslatef(0,150,0);
+    Windmill();
+    glPopMatrix();
+}
+///Left Side- Big Hill
+void leftHillBig(){
+    glPushMatrix();
+    glTranslatef(0,130,0);
+    if(f)glColor3ub(96, 118, 130);
+    else glColor3ub(0,0,0);
+    hill_big();
+    glPopMatrix();
+}
+///Left Side Tilla
+void leftTillaL1(){
+    glPushMatrix();
+    glTranslatef(-140,150,0);
+    tillaModel1();
+    glPopMatrix();
+}
+///Left Side Tilla
+void leftTillaR(){
+    glPushMatrix();
+    glTranslatef(0,150,0);
+    tillaModel2();
+    glPopMatrix();
+}
+
+void windMill_start(){
+    spin+=0.1;
+    glutPostRedisplay();
+}
+
+
 //House Structure(Neshat,Afrin Saidatun,ID-21-44384-1)
 void house(){
     //House_Roof
@@ -306,9 +581,20 @@ void water(){
 }
 //Main function called
 void display(){
-	glClear(GL_COLOR_BUFFER_BIT);
+   glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(255.0,0.0,1.0);
+	
+	 rightTillaL();
+    rightWindmMill();
+    rightBigHill1();
+    rightBigHill2();
+    rightTillaR();
 
+    leftTillaL1();
+    leftHillBig();
+    leftSmallHill();
+    leftWindMill();
+    leftTillaR();
 	water();
     rightHouse();
     leftHouse();
@@ -331,9 +617,41 @@ void update(int value){
     if(pos2>980)pos2=-100;
     pos1+=speed1;
     pos2-=speed2;
+    if(cpos1>750)cpos1=-320;
+    if(cpos2<-350)cpos2=650;
+    if(cpos3>750)cpos3=-320;
+    if(cpos4>750)cpos4=-320;
+    if(cpos5<-350)cpos5=650;
+    cpos1+=sp1;
+    cpos2-=sp1;
+    cpos3+=sp1;
+    cpos4+=sp1;
+    cpos5-=sp1;
     glutTimerFunc(100, update, 0);
     glutPostRedisplay();
 }
+
+
+void handleMouse(int key, int state, int x, int y){
+    switch (key){
+        case GLUT_LEFT_BUTTON:
+            if (state == GLUT_DOWN){
+                glutIdleFunc(windMill_start);
+            }
+            break;
+        case GLUT_MIDDLE_BUTTON:
+            break;
+        case GLUT_RIGHT_BUTTON:
+            if (state == GLUT_DOWN){
+                glutIdleFunc(NULL);
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+
 void handleKeypress(unsigned char key, int x, int y){
 	switch (key){
         case 'd':
