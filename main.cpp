@@ -351,7 +351,7 @@ int main(int argc, char** argv){
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(1900, 1900);
-	glutCreateWindow("CG Project- Smart Village");
+	glutCreateWindow("CG Project- Marine Drive");
 	init();
 	glutDisplayFunc(display);
     glutKeyboardFunc(handleKeypress);
