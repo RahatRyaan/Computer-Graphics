@@ -580,6 +580,110 @@ void water(){
 
 }
 
+///Star
+void star(){
+    if(!dayornight){
+        glPushMatrix();
+        glColor3ub(255,255,255);
+        glPointSize(4);
+        glBegin(GL_POINTS);
+
+        glVertex2i(100,400);
+        glVertex2i(120,420);
+        glVertex2i(150,450);
+        glVertex2i(170,470);
+        glVertex2i(200,430);
+        glVertex2i(230,470);
+        glVertex2i(350,460);
+        glVertex2i(900,400);
+        glVertex2i(580,470);
+        glVertex2i(840,460);
+        glVertex2i(750,400);
+        glVertex2i(950,400);
+        glVertex2i(760,420);
+        glVertex2i(690,450);
+        glVertex2i(550,470);
+        glVertex2i(790,430);
+        glVertex2i(830,470);
+        glVertex2i(690,460);
+        glVertex2i(590,400);
+        glVertex2i(490,430);
+        glVertex2i(330,470);
+        glVertex2i(390,460);
+        glVertex2i(460,400);
+        glVertex2i(490,330);
+        glVertex2i(330,370);
+        glVertex2i(390,360);
+        glVertex2i(460,300);
+        glVertex2i(990,230);
+        glVertex2i(930,370);
+        glVertex2i(990,360);
+        glVertex2i(960,300);
+        glVertex2i(160,300);
+        glVertex2i(190,230);
+        glVertex2i(30,370);
+        glVertex2i(290,360);
+        glVertex2i(260,300);
+        glVertex2i(0,300);
+        glVertex2i(90,230);
+        glVertex2i(130,370);
+        glVertex2i(60,360);
+        glVertex2i(80,300);
+        glVertex2i(570,200);
+        glVertex2i(600,230);
+        glVertex2i(630,270);
+        glVertex2i(590,260);
+        glVertex2i(680,200);
+        glEnd();
+
+        glPopMatrix();
+    }
+}
+
+
+///cloud1
+void cloud1(){
+    if(dayornight){
+        glPushMatrix();
+        glTranslatef(cpos1,170,0);
+        cloudModel1();
+        glPopMatrix();
+    }
+}
+///cloud2
+void cloud2(){
+    if(dayornight){
+        glPushMatrix();
+        glTranslatef(cpos2,270,0);
+        cloudModel2();
+        glPopMatrix();
+    }
+}
+///cloud3
+void cloud3(){
+    if(dayornight){
+        glPushMatrix();
+        glTranslatef(cpos3,200,0);
+        cloudModel3();
+        glPopMatrix();
+    }
+}
+///cloud4
+void cloud4(){
+    glPushMatrix();
+    glTranslatef(cpos4,250,0);
+    cloudModel2();
+    glPopMatrix();
+}
+
+///cloud5
+void cloud5(){
+    glPushMatrix();
+    glTranslatef(cpos5,220,0);
+    cloudModel1();
+    glPopMatrix();
+}
+
 ///Airplane Design
 void airPlane(){
     glPushMatrix();
