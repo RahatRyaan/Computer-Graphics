@@ -733,6 +733,48 @@ void airPlane(){
 
 
 }
+float boatXX = 0, boatSpeed = 0;
+
+struct Color
+{
+    int r;
+    int g;
+    int b;
+};
+void triangle(vector<pair<float, float>> coord, Color color = {255, 255, 255}, float Tx = 0, float Ty = 0, float s = 1)
+{
+    glColor3ub(color.r, color.g, color.b);
+    glBegin(GL_TRIANGLES);
+    for (int i = 0; i < coord.size(); i++)
+        glVertex2d(Tx + s * coord[i].first, Ty + s * coord[i].second);
+    glEnd();
+}
+void polygon(vector<pair<float, float>> coord, Color color = {255, 255, 255}, float Tx = 0, float Ty = 0, float s = 1)
+{
+    glColor3ub(color.r, color.g, color.b);
+    glBegin(GL_POLYGON);
+    for (int i = 0; i < coord.size(); i++)
+        glVertex2d(Tx + s * coord[i].first, Ty + s * coord[i].second);
+    glEnd();
+}
+void circle(float x, float y, float radius, float height, Color color)
+{
+    int triangleAmount = 360;
+    glBegin(GL_TRIANGLE_FAN);
+    glColor3ub(color.r, color.g, color.b);
+    glVertex2f(x, y); // center of circle
+    for (int i = 0; i <= 360; i++)
+        glVertex2f(x + (radius * cos(i * 2 * 3.1416 / triangleAmount)), y + (height * sin(i * 2 * 3.1416 / triangleAmount)));
+    glEnd();
+}
+
+void boat(float Tx = 0, float Ty = 0, float m = 1, Color boatSails = {58, 59, 95}, Color boatMast = {10, 24, 32}, Color boatBody = {98, 41, 61})
+{
+
+    polygon({{Tx + m * 0.34, Ty + 14.87}, {Tx + m * 128.31, Ty + 14.87}, {Tx + m * 138.12, Ty + 20.12}, {Tx + m * 138.12, Ty + 8.16}, {Tx + m * 137.79, Ty + 6.26}, {Tx + m * 136.91, Ty + 3.95}, {Tx + m * 135.59, Ty + 2.48}, {Tx + m * 134.24, Ty + 1.43}, {Tx + m * 132.48, Ty + 0.87}, {Tx + m * 129.5, Ty + 0.38}, {Tx + m * 126.76, Ty + 0.11}, {Tx + m * 4.1, Ty + 0.11}, {Tx + m * 0.34, Ty + 14.87}}, boatBody);
+   circle(Tx + 40, Ty, 15, 15, {0, 0, 0});
+   circle(Tx + 100, Ty, 15, 15, {0, 0, 0});
+}
 
 //Main function called
 void display(){
@@ -772,6 +814,8 @@ void update(int value){
     if(pos2>980)pos2=-100;
     pos1+=speed1;
     pos2-=speed2;
+	boatXX+=50;
+    if(boatXX > 980) boatXX = 0;
     if(cpos1>750)cpos1=-320;
     if(cpos2<-350)cpos2=650;
     if(cpos3>750)cpos3=-320;
@@ -807,16 +851,20 @@ void handleMouse(int key, int state, int x, int y){
 }
 
 
-void handleKeypress(unsigned char key, int x, int y){
-	switch (key){
-        case 'd':
-            f=1;
-            break;
-        case 'n':
-            f=0;
-            break;
+void keyboard(int key, int x, int y){
+	switch (key)
+    {
+    case GLUT_KEY_RIGHT:
+        if(f == 0) {
+            f = 1;
+        }else {
+            f = 0;
+        }
         glutPostRedisplay();
-	}
+        break;
+    default:
+        break;
+    }
 }
 
 int main(int argc, char** argv){
@@ -827,9 +875,8 @@ int main(int argc, char** argv){
 	glutCreateWindow("CG Project- Marine Drive");
 	init();
 	glutDisplayFunc(display);
-    glutKeyboardFunc(handleKeypress);
+    glutKeyboardFunc(keyboard);
     glutTimerFunc(1000, update, 0);
     glutMainLoop();
-	//
 }
 
