@@ -579,6 +579,57 @@ void water(){
     glPopMatrix();
 
 }
+
+///Airplane Design
+void airPlane(){
+    glPushMatrix();
+    glTranslatef(plane_x,370,0);
+
+    ///body
+    if(dayornight)glColor3ub(196, 190, 0);
+    else glColor3ub(0, 51, 2);
+    glBegin(GL_POLYGON);
+    glVertex2i(100,100);
+    glVertex2i(135,100);
+    glVertex2i(135,112);
+    glVertex2i(100,112);
+    glEnd();
+    ///Windows
+    glColor3ub(255,255,255);
+    glBegin(GL_POLYGON);
+    glVertex2i(107,104);
+    glVertex2i(115,104);
+    glVertex2i(115,110);
+    glVertex2i(107,110);
+    glEnd();
+    glBegin(GL_POLYGON);
+    glVertex2i(122,104);
+    glVertex2i(130,104);
+    glVertex2i(130,110);
+    glVertex2i(122,110);
+    glEnd();
+    ///Head
+    if(dayornight)glColor3ub(255,0,0);
+    else glColor3ub(82, 0, 0);
+    glBegin(GL_POLYGON);
+    glVertex2i(135,100);
+    glVertex2i(155,102);
+    glVertex2i(135,112);
+    glEnd();
+    ///Pakha
+    glBegin(GL_POLYGON);
+    if(dayornight)glColor3ub(255,0,0);
+    glVertex2i(100,112);
+    glVertex2i(110,112);
+    glVertex2i(103,120);
+    glVertex2i(100,120);
+    glEnd();
+
+    glPopMatrix();
+
+
+}
+
 //Main function called
 void display(){
    glClear(GL_COLOR_BUFFER_BIT);
