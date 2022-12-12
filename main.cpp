@@ -3,12 +3,13 @@
 #include <GL/glut.h>
 #include <windows.h>
 #include<math.h>
+#include<bits/stdc++.h>
 #define int GLint
 #define PI 3.1416
 using namespace std;
 bool f=1;
-float pos1=0,pos2=400,speed1=2.9f, speed2=2.5f, spin=0.0f,sp1=2.0f;
-
+float pos1=0,pos2=400,speed1=2.9f, speed2=2.5f, speed3=1.95f, spin=0.0f,cpos1=200,cpos2=400,cpos3=-250,cpos4=50,cpos5=490,sp1=2.0f;
+float sun_x=620 ,sun_y=310,sp_x=0.5f,sp_y=1.0f,plane_x=0.0f, plane_speed=4.5f;
 ///Circle (Abir, Faisal Amin, id - 20-43206-1)
 void circle(GLfloat x, GLfloat y, GLfloat rad){
     GLint triangle_amt=60,i;
@@ -582,7 +583,7 @@ void water(){
 
 ///Star
 void star(){
-    if(!dayornight){
+    if(!f){
         glPushMatrix();
         glColor3ub(255,255,255);
         glPointSize(4);
@@ -639,11 +640,55 @@ void star(){
         glPopMatrix();
     }
 }
+///Cloud Model-1 Structure
+void cloudModel1(){
+    if(f)glColor3f(1.25,0.924,0.930);
+    else glColor3ub(54,74,156);
 
+    glPushMatrix();
+    circle(320,210,15);///Left
+    circle(340,225,16);///Top
+    circle(360,210,16);///Right
+    ///Bottom
+    circle(330, 210, 16);
+    circle(340, 210, 16);
+    circle(350, 210, 16);
+
+    glPopMatrix();
+
+}
+///Cloud Model-2 Structure
+void cloudModel2(){
+    if(f)glColor3f(1.25,0.924,0.930);
+    else glColor3ub(54,74,156);
+
+    glPushMatrix();
+    circle(305,205,10);///Left
+    circle(320,210,15);///Top
+    circle(334,207,10);///Right
+    circle(320, 207, 10);///Bottom
+    glPopMatrix();
+}
+///Cloud Model-3 Structure
+void cloudModel3(){
+
+    glColor3f(1.25,0.924,0.930);
+
+    glPushMatrix();
+    circle(300,200,15);///Left
+    circle(320,210,15);///Top_Left
+    circle(340,220,16);///Top
+    circle(360, 210, 15);///Top_Right
+    circle(380,200,15);///Right
+    circle(360,190,20);///Bottom_Right
+    circle(320,190,20);///Bottom_Left
+    circle(340,190,20);///Bottom
+    glPopMatrix();
+}
 
 ///cloud1
 void cloud1(){
-    if(dayornight){
+    if(f){
         glPushMatrix();
         glTranslatef(cpos1,170,0);
         cloudModel1();
@@ -652,7 +697,7 @@ void cloud1(){
 }
 ///cloud2
 void cloud2(){
-    if(dayornight){
+    if(f){
         glPushMatrix();
         glTranslatef(cpos2,270,0);
         cloudModel2();
@@ -661,7 +706,7 @@ void cloud2(){
 }
 ///cloud3
 void cloud3(){
-    if(dayornight){
+    if(f){
         glPushMatrix();
         glTranslatef(cpos3,200,0);
         cloudModel3();
@@ -690,7 +735,7 @@ void airPlane(){
     glTranslatef(plane_x,370,0);
 
     ///body
-    if(dayornight)glColor3ub(196, 190, 0);
+    if(f)glColor3ub(196, 190, 0);
     else glColor3ub(0, 51, 2);
     glBegin(GL_POLYGON);
     glVertex2i(100,100);
@@ -713,7 +758,7 @@ void airPlane(){
     glVertex2i(122,110);
     glEnd();
     ///Head
-    if(dayornight)glColor3ub(255,0,0);
+    if(f)glColor3ub(255,0,0);
     else glColor3ub(82, 0, 0);
     glBegin(GL_POLYGON);
     glVertex2i(135,100);
@@ -722,7 +767,7 @@ void airPlane(){
     glEnd();
     ///Pakha
     glBegin(GL_POLYGON);
-    if(dayornight)glColor3ub(255,0,0);
+    if(f)glColor3ub(255,0,0);
     glVertex2i(100,112);
     glVertex2i(110,112);
     glVertex2i(103,120);
@@ -768,7 +813,7 @@ void circle(float x, float y, float radius, float height, Color color)
     glEnd();
 }
 
-void boat(float Tx = 0, float Ty = 0, float m = 1, Color boatSails = {58, 59, 95}, Color boatMast = {10, 24, 32}, Color boatBody = {98, 41, 61})
+void Car(float Tx = 0, float Ty = 0, float m = 1, Color boatSails = {58, 59, 95}, Color boatMast = {10, 24, 32}, Color boatBody = {98, 41, 61})
 {
 
     polygon({{Tx + m * 0.34, Ty + 14.87}, {Tx + m * 128.31, Ty + 14.87}, {Tx + m * 138.12, Ty + 20.12}, {Tx + m * 138.12, Ty + 8.16}, {Tx + m * 137.79, Ty + 6.26}, {Tx + m * 136.91, Ty + 3.95}, {Tx + m * 135.59, Ty + 2.48}, {Tx + m * 134.24, Ty + 1.43}, {Tx + m * 132.48, Ty + 0.87}, {Tx + m * 129.5, Ty + 0.38}, {Tx + m * 126.76, Ty + 0.11}, {Tx + m * 4.1, Ty + 0.11}, {Tx + m * 0.34, Ty + 14.87}}, boatBody);
@@ -776,11 +821,13 @@ void boat(float Tx = 0, float Ty = 0, float m = 1, Color boatSails = {58, 59, 95
    circle(Tx + 100, Ty, 15, 15, {0, 0, 0});
 }
 
+
+
 //Main function called
 void display(){
    glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(255.0,0.0,1.0);
-	
+
 	 rightTillaL();
     rightWindmMill();
     rightBigHill1();
@@ -795,10 +842,10 @@ void display(){
 	water();
     rightHouse();
     leftHouse();
-
     road();
     boatA();
     boatB();
+    Car(boatXX, 200, 1);
 	glFlush();
 }
 void init(void){
@@ -831,27 +878,8 @@ void update(int value){
 }
 
 
-void handleMouse(int key, int state, int x, int y){
-    switch (key){
-        case GLUT_LEFT_BUTTON:
-            if (state == GLUT_DOWN){
-                glutIdleFunc(windMill_start);
-            }
-            break;
-        case GLUT_MIDDLE_BUTTON:
-            break;
-        case GLUT_RIGHT_BUTTON:
-            if (state == GLUT_DOWN){
-                glutIdleFunc(NULL);
-            }
-            break;
-        default:
-            break;
-    }
-}
-
-
 void keyboard(int key, int x, int y){
+
 	switch (key)
     {
     case GLUT_KEY_RIGHT:
@@ -866,7 +894,6 @@ void keyboard(int key, int x, int y){
         break;
     }
 }
-
 int main(int argc, char** argv){
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
@@ -875,8 +902,9 @@ int main(int argc, char** argv){
 	glutCreateWindow("CG Project- Marine Drive");
 	init();
 	glutDisplayFunc(display);
-    glutKeyboardFunc(keyboard);
+	glutIdleFunc(windMill_start);
+
+    glutSpecialFunc(keyboard);
     glutTimerFunc(1000, update, 0);
     glutMainLoop();
 }
-
