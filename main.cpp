@@ -4,13 +4,19 @@
 #include <windows.h>
 #include<math.h>
 #include<bits/stdc++.h>
+
+
+
+using namespace std;
+#pragma comment(lib, "Winmm.lib")
 #define int GLint
 #define PI 3.1416
-using namespace std;
-bool f=1;
+
+bool dayornight=1;
 float pos1=0,pos2=400,speed1=2.9f, speed2=2.5f, speed3=1.95f, spin=0.0f,cpos1=200,cpos2=400,cpos3=-250,cpos4=50,cpos5=490,sp1=2.0f;
 float sun_x=620 ,sun_y=310,sp_x=0.5f,sp_y=1.0f,plane_x=0.0f, plane_speed=4.5f;
-///Circle (Abir, Faisal Amin, id - 20-43206-1)
+
+///Circle
 void circle(GLfloat x, GLfloat y, GLfloat rad){
     GLint triangle_amt=60,i;
     GLfloat t_pi=2*PI;
@@ -24,6 +30,52 @@ void circle(GLfloat x, GLfloat y, GLfloat rad){
     }
     glEnd();
 }
+///Cloud Model-1 Structure
+void cloudModel1(){
+    if(dayornight)glColor3f(1.25,0.924,0.930);
+    else glColor3ub(54,74,156);
+
+    glPushMatrix();
+    circle(320,210,15);///Left
+    circle(340,225,16);///Top
+    circle(360,210,16);///Right
+    ///Bottom
+    circle(330, 210, 16);
+    circle(340, 210, 16);
+    circle(350, 210, 16);
+
+    glPopMatrix();
+
+}
+///Cloud Model-2 Structure
+void cloudModel2(){
+    if(dayornight)glColor3f(1.25,0.924,0.930);
+    else glColor3ub(54,74,156);
+
+    glPushMatrix();
+    circle(305,205,10);///Left
+    circle(320,210,15);///Top
+    circle(334,207,10);///Right
+    circle(320, 207, 10);///Bottom
+    glPopMatrix();
+}
+///Cloud Model-3 Structure
+void cloudModel3(){
+
+    glColor3f(1.25,0.924,0.930);
+
+    glPushMatrix();
+    circle(300,200,15);///Left
+    circle(320,210,15);///Top_Left
+    circle(340,220,16);///Top
+    circle(360, 210, 15);///Top_Right
+    circle(380,200,15);///Right
+    circle(360,190,20);///Bottom_Right
+    circle(320,190,20);///Bottom_Left
+    circle(340,190,20);///Bottom
+    glPopMatrix();
+}
+
 ///Big hill- Structure
 void hill_big(){
     glBegin(GL_POLYGON);
@@ -34,7 +86,7 @@ void hill_big(){
     glEnd();
     ///snow
     glBegin(GL_POLYGON);
-    if(f)glColor3f(255,255,255);
+    if(dayornight)glColor3f(255,255,255);
     else glColor3ub(172, 174, 176);
     glVertex2i(200,225);
     glVertex2i(230,190);
@@ -57,7 +109,7 @@ void hill_small(){
 
     ///Hill_Small_Snow
 	glBegin(GL_POLYGON);
-    if(f)glColor3f(255,255,255);
+    if(dayornight)glColor3f(255,255,255);
     else glColor3ub(172, 174, 176);
     glVertex2i(290, 150);
 	glVertex2i(310, 175);
@@ -71,7 +123,7 @@ void hill_small(){
 void tillaModel1(){
 
 	glBegin(GL_POLYGON);
-	if(f)glColor3f(0.1, 1.293, 0.0);
+	if(dayornight)glColor3f(0.1, 1.293, 0.0);
 	else glColor3ub(15, 59, 11);
 	glVertex2i(125, 70);
 	glVertex2i(150, 80);
@@ -86,7 +138,7 @@ void tillaModel1(){
 }
 ///Tilla Model 2- Structure
 void tillaModel2(){
-    if(f)glColor3f(0.1, 1.293, 0.0);
+    if(dayornight)glColor3f(0.1, 1.293, 0.0);
 	else glColor3ub(15, 59, 11);
     glPushMatrix();
     circle(430,90,30);
@@ -102,10 +154,176 @@ void tillaModel2(){
     circle(485,55,20);
     glPopMatrix();
 }
+///House Structure
+void house(){
+    ///House_Roof
+	glBegin(GL_POLYGON);
+    glColor3f(.990, 0.0, 0.0);
+	glVertex2i(285, 105);
+	glVertex2i(285, 130);
+	glVertex2i(380, 115);
+	glVertex2i(380, 105);
+	glEnd();
+    ///House_Roof_Shadow
+	glBegin(GL_POLYGON);
+    glColor3f(.890, 0.0, 0.0);
+	glVertex2i(285, 105);
+	glVertex2i(285, 120);
+	glVertex2i(380, 105);
+	glVertex2i(380, 105);
+	glEnd();
+    ///House_Fence
+	glBegin(GL_POLYGON);
+    glColor3f(.555, 1.0, 1.0);
+	glVertex2i(290, 70);
+	glVertex2i(290, 104);
+	glVertex2i(375, 104);
+	glVertex2i(375, 70);
+	glEnd();
+    ///House_Fence_Shadow
+	glBegin(GL_POLYGON);
+    glColor3f(.555, 0.924, 0.930);
+	glVertex2i(310, 70);
+	glVertex2i(350, 104);
+	glVertex2i(375, 104);
+	glVertex2i(375, 70);
+	glEnd();
+    ///House_Door
+	glBegin(GL_POLYGON);
+    glColor3f(0.38, 0.41, 0.36);
+	glVertex2i(330, 70);
+	glVertex2i(330, 100);
+	glVertex2i(350, 100);
+	glVertex2i(350, 70);
+	glEnd();
+    ///House_Window1
+	glBegin(GL_POLYGON);
+    glColor3f(0.38, 0.21, 0.26);
+	glVertex2i(295, 75);
+	glVertex2i(295, 90);
+	glVertex2i(310, 90);
+	glVertex2i(310, 75);
+	glEnd();
+    ///House_Window2
+	glBegin(GL_POLYGON);
+    glColor3f(0.38, 0.21, 0.26);
+	glVertex2i(312, 75);
+	glVertex2i(312, 90);
+	glVertex2i(327, 90);
+	glVertex2i(327, 75);
 
+	glEnd();
+
+    ///House_Window3
+	glBegin(GL_POLYGON);
+    glColor3f(0.38, 0.21, 0.26);
+	glVertex2i(355, 75);
+	glVertex2i(355, 90);
+	glVertex2i(370, 90);
+	glVertex2i(370, 75);
+	glEnd();
+    ///House_Small_Roof
+	glBegin(GL_POLYGON);
+    glColor3f(1.0, 0.0, 0.0);
+	glVertex2i(250, 90);
+	glVertex2i(257, 104);
+	glVertex2i(290, 104);
+	glVertex2i(290, 90);
+
+	glEnd();
+
+    ///House_Small_Fence
+	glBegin(GL_POLYGON);
+    glColor3f(.555, .724, .930);
+	glVertex2i(255, 70);
+	glVertex2i(255, 90);
+	glVertex2i(290, 90);
+	glVertex2i(290, 70);
+
+	glEnd();
+
+    ///House_Small_Door
+	glBegin(GL_POLYGON);
+    glColor3f(0.11, 0.23, 0.36);
+	glVertex2i(260, 70);
+	glVertex2i(260, 80);
+	glVertex2i(285, 80);
+	glVertex2i(285, 70);
+
+	glEnd();
+
+}
+///House 2 structure
+void house2(){
+    ///body
+    glTranslatef(50,100,0);
+    glColor3ub(64, 73, 237);
+    glBegin(GL_POLYGON);
+    glVertex2i(0,0);
+    glVertex2i(100,0);
+    glVertex2i(100,49);
+    glVertex2i(0,49);
+    glEnd();
+    ///roof
+    glBegin(GL_POLYGON);
+    glColor3ub(255,0,0);
+    glVertex2i(0,50);
+    glVertex2i(105,50);
+    glVertex2i(105,60);
+    glVertex2i(0,67);
+    glEnd();
+    ///window1
+    glBegin(GL_POLYGON);
+    glColor3ub(35, 36, 54);
+    glVertex2i(15,7);
+    glVertex2i(35,7);
+    glVertex2i(35,25);
+    glVertex2i(15,25);
+    glEnd();
+    ///window2
+    glBegin(GL_POLYGON);
+    glColor3ub(35, 36, 54);
+    glVertex2i(78,7);
+    glVertex2i(95,7);
+    glVertex2i(95,25);
+    glVertex2i(78,25);
+    glEnd();
+    ///door
+    glBegin(GL_POLYGON);
+    glColor3ub(35, 36, 54);
+    glVertex2i(42,0);
+    glVertex2i(68,0);
+    glVertex2i(68,33);
+    glVertex2i(42,33);
+    glEnd();
+    ///extra design
+    glBegin(GL_POLYGON);
+    glColor3ub(224, 169, 121);
+    glVertex2i(-20,0);
+    glVertex2i(0,0);
+    glVertex2i(0,70);
+    glVertex2i(-20,70);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3ub(47, 38, 224);
+    glVertex2i(-20,70);
+    glVertex2i(0,70);
+    glVertex2i(-5,80);
+    glVertex2i(-25,80);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3ub(224, 169, 121);
+    glVertex2i(-25,10);
+    glVertex2i(-20,0);
+    glVertex2i(-20,70);
+    glVertex2i(-25,80);
+    glEnd();
+}
 void ground(){
 	glBegin(GL_POLYGON);
-    if(f)glColor3ub(34,139,34);
+    if(dayornight)glColor3ub(34,139,34);
     else glColor3ub(0,100,0);
 	glVertex2i(0, 220);
 	glVertex2i(0, 270);
@@ -114,7 +332,118 @@ void ground(){
 
 	glEnd();
 }
+///road Model
+void road(){
+    ///road
+	glBegin(GL_POLYGON);
+    if(dayornight)glColor3f(0.38, 0.41, 0.36);
+    else glColor3ub(0.38, 0.41, 0.36);
+	glVertex2i(0, 180);
+	glVertex2i(0, 220);
+	glVertex2i(1000, 220);
+	glVertex2i(1000, 180);
+	glEnd();
 
+// road strip1
+     glBegin(GL_POLYGON);
+    if(dayornight)glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+    else glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+	glVertex2i(20, 200);
+	glVertex2i(20, 197);
+	glVertex2i(110, 197);
+	glVertex2i(110, 200);
+
+	glEnd();
+
+	//road strip2
+	glBegin(GL_POLYGON);
+    if(dayornight)glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+    else glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+	glVertex2i(250, 200);
+	glVertex2i(250, 197);
+	glVertex2i(320, 197);
+	glVertex2i(320, 200);
+	glEnd();
+
+	//road strip3
+	glBegin(GL_POLYGON);
+    if(dayornight)glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+    else glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+	glVertex2i(460, 200);
+	glVertex2i(460, 197);
+	glVertex2i(530, 197);
+	glVertex2i(530, 200);
+	glEnd();
+
+	//road strip4
+	glBegin(GL_POLYGON);
+    if(dayornight)glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+    else glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+	glVertex2i(670, 200);
+	glVertex2i(670, 197);
+	glVertex2i(740, 197);
+	glVertex2i(740, 200);
+	glEnd();
+
+	//road strip5
+	glBegin(GL_POLYGON);
+    if(dayornight)glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+    else glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
+	glVertex2i(880, 200);
+	glVertex2i(880, 197);
+	glVertex2i(950, 197);
+	glVertex2i(950, 200);
+	glEnd();
+
+}
+///Tree Model
+void treeModel1(){
+    if(dayornight) glColor3ub(0, 173, 36);
+    else glColor3ub(17, 102, 30);
+    circle(110,110,15);
+    circle(110,100,15);
+    glColor3ub(2, 41, 10);
+    glBegin(GL_POLYGON);
+    glVertex2i(109,70);
+    glVertex2i(109,90);
+    glVertex2i(111,90);
+    glVertex2i(111,70);
+    glEnd();
+}
+
+void treeModel2(){
+    if(dayornight) glColor3ub(0, 173, 36);
+    else glColor3ub(17, 102, 30);
+    circle(130,130,5);
+    circle(125,126,5);
+    circle(135,126,5);
+    circle(130,125,5);
+
+    glColor3ub(2, 41, 10);
+    glBegin(GL_POLYGON);
+    glVertex2i(129,110);
+    glVertex2i(129,124);
+    glVertex2i(131,124);
+    glVertex2i(131,110);
+    glEnd();
+}
+void treeModel3(){
+    if(dayornight) glColor3ub(0, 173, 36);
+    else glColor3ub(17, 102, 30);
+    glBegin(GL_POLYGON);
+    glVertex2i(125,123);
+    glVertex2i(133,145);
+    glVertex2i(141,123);
+    glEnd();
+
+    glColor3ub(2, 41, 10);
+    glBegin(GL_POLYGON);
+    glVertex2i(132,110);
+    glVertex2i(132,124);
+    glVertex2i(134,124);
+    glVertex2i(134,110);
+    glEnd();
+}
 
 ///Windmill stand structure
 void Windmill_Stand_Model(){
@@ -164,8 +493,29 @@ void Windmill_Blade(){
 
 }
 
+///Boat Structure
+void boat1(){
+    glTranslatef(50,100,0);
+    glColor3ub(0,0,0);
+    glBegin(GL_POLYGON);
+    glVertex2i(60,0);
+    glVertex2i(150,0);
+    glVertex2i(200,40);
+    glVertex2i(0,40);
+    glEnd();
 
+    glColor3ub(255,0,0);
+    glBegin(GL_TRIANGLES);
+    glVertex2i(30,40);
+    glVertex2i(65,40);
+    glVertex2i(65,80);
 
+    glVertex2i(67,40);
+    glVertex2i(102,40);
+    glVertex2i(67,75);
+    glEnd();
+
+}
 /// Windmill Structure
 void Windmill(){
     ///Windmill_Stand
@@ -175,12 +525,12 @@ void Windmill(){
     glPopMatrix();
 
     ///Windmill_Motor
-    if(f)glColor3f(0.11, 0.23, 0.36);
+    if(dayornight)glColor3f(0.11, 0.23, 0.36);
     else glColor3ub(107, 130, 199);
     circle(380,250,10);
 
     ///Windmill_Rotary_Blades
-    if(f)glColor3f(0.11, 0.23, 0.36);
+    if(dayornight)glColor3f(0.11, 0.23, 0.36);
     else glColor3ub(107, 130, 199);
     glPushMatrix();
     glTranslatef(380,251,0);
@@ -194,7 +544,7 @@ void Windmill(){
 void rightBigHill1(){
     glPushMatrix();
     glTranslatef(600,150,0);
-    if(f)glColor3ub(96, 118, 130);
+    if(dayornight)glColor3ub(96, 118, 130);
     else glColor3ub(0,0,0);
     hill_big();
     glPopMatrix();
@@ -202,7 +552,7 @@ void rightBigHill1(){
 ///Right Side- Big Hill 2
 void rightBigHill2(){
     glPushMatrix();
-    if(f)glColor3ub(96, 118, 130);
+    if(dayornight)glColor3ub(96, 118, 130);
     else glColor3ub(31, 40, 66);
     glTranslatef(550,130,0);
     hill_big();
@@ -212,13 +562,25 @@ void rightBigHill2(){
 void leftSmallHill(){
     glPushMatrix();
     glTranslatef(0,120,0);
-    if(f)glColor3ub(96, 118, 130);
+    if(dayornight)glColor3ub(96, 118, 130);
     else glColor3ub(31, 40, 66);
     hill_small();
     glPopMatrix();
 }
-
-
+///Right Side-House
+void rightHouse(){
+    glPushMatrix();
+    glTranslatef(400,150,0);
+    house();
+    glPopMatrix();
+}
+///Left Side house
+void leftHouse(){
+    glPushMatrix();
+    glTranslatef(420,120,0);
+    house2();
+    glPopMatrix();
+}
 ///Right Side- Tilla
 void rightTillaL(){
     glPushMatrix();
@@ -258,7 +620,7 @@ void leftWindMill(){
 void leftHillBig(){
     glPushMatrix();
     glTranslatef(0,130,0);
-    if(f)glColor3ub(96, 118, 130);
+    if(dayornight)glColor3ub(96, 118, 130);
     else glColor3ub(0,0,0);
     hill_big();
     glPopMatrix();
@@ -277,282 +639,7 @@ void leftTillaR(){
     tillaModel2();
     glPopMatrix();
 }
-
-void windMill_start(){
-    spin+=0.1;
-    glutPostRedisplay();
-}
-
-
-//House Structure(Neshat,Afrin Saidatun,ID-21-44384-1)
-void house(){
-    //House_Roof
-	glBegin(GL_POLYGON);
-    glColor3f(.990, 0.0, 0.0);
-	glVertex2i(285, 105);
-	glVertex2i(285, 130);
-	glVertex2i(380, 115);
-	glVertex2i(380, 105);
-	glEnd();
-    //House_Roof_Shadow
-	glBegin(GL_POLYGON);
-    glColor3f(.890, 0.0, 0.0);
-	glVertex2i(285, 105);
-	glVertex2i(285, 120);
-	glVertex2i(380, 105);
-	glVertex2i(380, 105);
-	glEnd();
-    //House_Fence
-	glBegin(GL_POLYGON);
-    glColor3f(.555, 1.0, 1.0);
-	glVertex2i(290, 70);
-	glVertex2i(290, 104);
-	glVertex2i(375, 104);
-	glVertex2i(375, 70);
-	glEnd();
-    //House_Fence_Shadow
-	glBegin(GL_POLYGON);
-    glColor3f(.555, 0.924, 0.930);
-	glVertex2i(310, 70);
-	glVertex2i(350, 104);
-	glVertex2i(375, 104);
-	glVertex2i(375, 70);
-	glEnd();
-    //House_Door
-	glBegin(GL_POLYGON);
-    glColor3f(0.38, 0.41, 0.36);
-	glVertex2i(330, 70);
-	glVertex2i(330, 100);
-	glVertex2i(350, 100);
-	glVertex2i(350, 70);
-	glEnd();
-    //House_Window1
-	glBegin(GL_POLYGON);
-    glColor3f(0.38, 0.21, 0.26);
-	glVertex2i(295, 75);
-	glVertex2i(295, 90);
-	glVertex2i(310, 90);
-	glVertex2i(310, 75);
-	glEnd();
-    //House_Window2
-	glBegin(GL_POLYGON);
-    glColor3f(0.38, 0.21, 0.26);
-	glVertex2i(312, 75);
-	glVertex2i(312, 90);
-	glVertex2i(327, 90);
-	glVertex2i(327, 75);
-
-	glEnd();
-
-    //House_Window3
-	glBegin(GL_POLYGON);
-    glColor3f(0.38, 0.21, 0.26);
-	glVertex2i(355, 75);
-	glVertex2i(355, 90);
-	glVertex2i(370, 90);
-	glVertex2i(370, 75);
-	glEnd();
-    //House_Small_Roof
-	glBegin(GL_POLYGON);
-    glColor3f(1.0, 0.0, 0.0);
-	glVertex2i(250, 90);
-	glVertex2i(257, 104);
-	glVertex2i(290, 104);
-	glVertex2i(290, 90);
-
-	glEnd();
-
-    //House_Small_Fence
-	glBegin(GL_POLYGON);
-    glColor3f(.555, .724, .930);
-	glVertex2i(255, 70);
-	glVertex2i(255, 90);
-	glVertex2i(290, 90);
-	glVertex2i(290, 70);
-
-	glEnd();
-
-    //House_Small_Door
-	glBegin(GL_POLYGON);
-    glColor3f(0.11, 0.23, 0.36);
-	glVertex2i(260, 70);
-	glVertex2i(260, 80);
-	glVertex2i(285, 80);
-	glVertex2i(285, 70);
-
-	glEnd();
-
-}
-//House 2 structure
-void house2(){
-    //body
-    glTranslatef(50,100,0);
-    glColor3ub(64, 73, 237);
-    glBegin(GL_POLYGON);
-    glVertex2i(0,0);
-    glVertex2i(100,0);
-    glVertex2i(100,49);
-    glVertex2i(0,49);
-    glEnd();
-    //roof
-    glBegin(GL_POLYGON);
-    glColor3ub(255,0,0);
-    glVertex2i(0,50);
-    glVertex2i(105,50);
-    glVertex2i(105,60);
-    glVertex2i(0,67);
-    glEnd();
-    //window1
-    glBegin(GL_POLYGON);
-    glColor3ub(35, 36, 54);
-    glVertex2i(15,7);
-    glVertex2i(35,7);
-    glVertex2i(35,25);
-    glVertex2i(15,25);
-    glEnd();
-    //window2
-    glBegin(GL_POLYGON);
-    glColor3ub(35, 36, 54);
-    glVertex2i(78,7);
-    glVertex2i(95,7);
-    glVertex2i(95,25);
-    glVertex2i(78,25);
-    glEnd();
-    //door
-    glBegin(GL_POLYGON);
-    glColor3ub(35, 36, 54);
-    glVertex2i(42,0);
-    glVertex2i(68,0);
-    glVertex2i(68,33);
-    glVertex2i(42,33);
-    glEnd();
-    //extra design
-    glBegin(GL_POLYGON);
-    glColor3ub(224, 169, 121);
-    glVertex2i(-20,0);
-    glVertex2i(0,0);
-    glVertex2i(0,70);
-    glVertex2i(-20,70);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glColor3ub(47, 38, 224);
-    glVertex2i(-20,70);
-    glVertex2i(0,70);
-    glVertex2i(-5,80);
-    glVertex2i(-25,80);
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    glColor3ub(224, 169, 121);
-    glVertex2i(-25,10);
-    glVertex2i(-20,0);
-    glVertex2i(-20,70);
-    glVertex2i(-25,80);
-    glEnd();
-}
-   //road Model
-void road(){
-    //road
-	glBegin(GL_POLYGON);
-    if(f)glColor3f(0.38, 0.41, 0.36);
-    else glColor3ub(0.38, 0.41, 0.36);
-	glVertex2i(0, 180);
-	glVertex2i(0, 220);
-	glVertex2i(1000, 220);
-	glVertex2i(1000, 180);
-	glEnd();
-
-    // road strip1
-     glBegin(GL_POLYGON);
-    if(f)glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-    else glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-	glVertex2i(20, 200);
-	glVertex2i(20, 197);
-	glVertex2i(110, 197);
-	glVertex2i(110, 200);
-
-	glEnd();
-
-	//road strip2
-	glBegin(GL_POLYGON);
-    if(f)glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-    else glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-	glVertex2i(250, 200);
-	glVertex2i(250, 197);
-	glVertex2i(320, 197);
-	glVertex2i(320, 200);
-	glEnd();
-
-	//road strip3
-	glBegin(GL_POLYGON);
-    if(f)glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-    else glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-	glVertex2i(460, 200);
-	glVertex2i(460, 197);
-	glVertex2i(530, 197);
-	glVertex2i(530, 200);
-	glEnd();
-
-	//road strip4
-	glBegin(GL_POLYGON);
-    if(f)glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-    else glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-	glVertex2i(670, 200);
-	glVertex2i(670, 197);
-	glVertex2i(740, 197);
-	glVertex2i(740, 200);
-	glEnd();
-
-	//road strip5
-	glBegin(GL_POLYGON);
-    if(f)glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-    else glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
-	glVertex2i(880, 200);
-	glVertex2i(880, 197);
-	glVertex2i(950, 197);
-	glVertex2i(950, 200);
-	glEnd();
-
-}
-//Boat Structure
-void boat1(){
-    glTranslatef(50,100,0);
-    glColor3ub(0,0,0);
-    glBegin(GL_POLYGON);
-    glVertex2i(60,0);
-    glVertex2i(150,0);
-    glVertex2i(200,40);
-    glVertex2i(0,40);
-    glEnd();
-
-    glColor3ub(255,0,0);
-    glBegin(GL_TRIANGLES);
-    glVertex2i(30,40);
-    glVertex2i(65,40);
-    glVertex2i(65,80);
-
-    glVertex2i(67,40);
-    glVertex2i(102,40);
-    glVertex2i(67,75);
-    glEnd();
-
-}
-//Right Side-House
-void rightHouse(){
-    glPushMatrix();
-    glTranslatef(400,150,0);
-    house();
-    glPopMatrix();
-}
-//Left Side house
-void leftHouse(){
-    glPushMatrix();
-    glTranslatef(420,120,0);
-    house2();
-    glPopMatrix();
-}
-//Boat1
+///Boat1
 void boatA(){
     glPushMatrix();
     glTranslatef(pos1,-15,0);
@@ -560,16 +647,79 @@ void boatA(){
     glPopMatrix();
 }
 
-//Boat2
+///Boat2
 void boatB(){
     glPushMatrix();
     glTranslatef(pos2,-70,0);
     boat1();
     glPopMatrix();
 }
-//Water
+///tree1
+void tree1(){
+    glPushMatrix();
+    glTranslatef(0,188,0);
+    treeModel1();
+    glPopMatrix();
+}
+///tree2
+void tree2(){
+    glPushMatrix();
+    glTranslatef(-60,146,0);
+    treeModel2();
+    glPopMatrix();
+}
+///tree3
+void tree3(){
+    glPushMatrix();
+    glTranslatef(-110,130,0);
+    treeModel3();
+    glPopMatrix();
+}
+///tree4
+void tree4(){
+    glPushMatrix();
+    glTranslatef(300,160,0);
+    treeModel2();
+    glPopMatrix();
+}
+///tree5
+void tree5(){
+    glPushMatrix();
+    glTranslatef(530,150,0);
+    treeModel1();
+    glPopMatrix();
+}
+///tree6
+void tree6(){
+    glPushMatrix();
+    glTranslatef(455,142,0);
+    treeModel3();
+    glPopMatrix();
+}
+///tree7
+void tree7(){
+    glPushMatrix();
+    glTranslatef(200,110,0);
+    treeModel2();
+    glPopMatrix();
+}
+
+///Sky
+void sky(){
+    glPushMatrix();
+    if(dayornight)glColor3ub(157, 216, 250);
+    else glColor3ub(4, 11, 51);
+    glBegin(GL_POLYGON);
+    glVertex2i(0,220);
+    glVertex2i(1000,220);
+    glVertex2i(1000,500);
+    glVertex2i(0,500);
+    glEnd();
+    glPopMatrix();
+}
+///Water
 void water(){
-    if(f)glColor3ub(107, 117, 255);
+    if(dayornight)glColor3ub(107, 117, 255);
     else glColor3ub(0, 10, 143);
     glBegin(GL_POLYGON);
     glVertex2i(0,0);
@@ -580,10 +730,30 @@ void water(){
     glPopMatrix();
 
 }
-
+///Sun
+void sun(){
+    if(dayornight){
+        glPushMatrix();
+        glColor3ub(252, 212, 64);
+        glTranslatef(sun_x,sun_y,0.0);
+        circle(0,0,30);
+        glPopMatrix();
+    }
+}
+///Moon
+void moon(){
+    if(!dayornight){
+        glPushMatrix();
+        glColor3ub(255, 136, 18);
+        circle(620,360,30);
+        glColor3ub(4, 11, 51);
+        circle(630,380,30);
+        glPopMatrix();
+    }
+}
 ///Star
 void star(){
-    if(!f){
+    if(!dayornight){
         glPushMatrix();
         glColor3ub(255,255,255);
         glPointSize(4);
@@ -640,55 +810,10 @@ void star(){
         glPopMatrix();
     }
 }
-///Cloud Model-1 Structure
-void cloudModel1(){
-    if(f)glColor3f(1.25,0.924,0.930);
-    else glColor3ub(54,74,156);
-
-    glPushMatrix();
-    circle(320,210,15);///Left
-    circle(340,225,16);///Top
-    circle(360,210,16);///Right
-    ///Bottom
-    circle(330, 210, 16);
-    circle(340, 210, 16);
-    circle(350, 210, 16);
-
-    glPopMatrix();
-
-}
-///Cloud Model-2 Structure
-void cloudModel2(){
-    if(f)glColor3f(1.25,0.924,0.930);
-    else glColor3ub(54,74,156);
-
-    glPushMatrix();
-    circle(305,205,10);///Left
-    circle(320,210,15);///Top
-    circle(334,207,10);///Right
-    circle(320, 207, 10);///Bottom
-    glPopMatrix();
-}
-///Cloud Model-3 Structure
-void cloudModel3(){
-
-    glColor3f(1.25,0.924,0.930);
-
-    glPushMatrix();
-    circle(300,200,15);///Left
-    circle(320,210,15);///Top_Left
-    circle(340,220,16);///Top
-    circle(360, 210, 15);///Top_Right
-    circle(380,200,15);///Right
-    circle(360,190,20);///Bottom_Right
-    circle(320,190,20);///Bottom_Left
-    circle(340,190,20);///Bottom
-    glPopMatrix();
-}
 
 ///cloud1
 void cloud1(){
-    if(f){
+    if(dayornight){
         glPushMatrix();
         glTranslatef(cpos1,170,0);
         cloudModel1();
@@ -697,7 +822,7 @@ void cloud1(){
 }
 ///cloud2
 void cloud2(){
-    if(f){
+    if(dayornight){
         glPushMatrix();
         glTranslatef(cpos2,270,0);
         cloudModel2();
@@ -706,7 +831,7 @@ void cloud2(){
 }
 ///cloud3
 void cloud3(){
-    if(f){
+    if(dayornight){
         glPushMatrix();
         glTranslatef(cpos3,200,0);
         cloudModel3();
@@ -735,7 +860,7 @@ void airPlane(){
     glTranslatef(plane_x,370,0);
 
     ///body
-    if(f)glColor3ub(196, 190, 0);
+    if(dayornight)glColor3ub(196, 190, 0);
     else glColor3ub(0, 51, 2);
     glBegin(GL_POLYGON);
     glVertex2i(100,100);
@@ -758,7 +883,7 @@ void airPlane(){
     glVertex2i(122,110);
     glEnd();
     ///Head
-    if(f)glColor3ub(255,0,0);
+    if(dayornight)glColor3ub(255,0,0);
     else glColor3ub(82, 0, 0);
     glBegin(GL_POLYGON);
     glVertex2i(135,100);
@@ -767,7 +892,7 @@ void airPlane(){
     glEnd();
     ///Pakha
     glBegin(GL_POLYGON);
-    if(f)glColor3ub(255,0,0);
+    if(dayornight)glColor3ub(255,0,0);
     glVertex2i(100,112);
     glVertex2i(110,112);
     glVertex2i(103,120);
@@ -778,6 +903,16 @@ void airPlane(){
 
 
 }
+
+
+
+
+
+
+
+
+
+/*--------------------------------------------------------*/
 float boatXX = 0, boatSpeed = 0;
 
 struct Color
@@ -802,50 +937,76 @@ void polygon(vector<pair<float, float>> coord, Color color = {255, 255, 255}, fl
         glVertex2d(Tx + s * coord[i].first, Ty + s * coord[i].second);
     glEnd();
 }
-void circle(float x, float y, float radius, float height, Color color)
+void boat(float Tx = 0, float Ty = 0, float m = 1, Color boatSails = {58, 59, 95}, Color boatMast = {10, 24, 32}, Color boatBody = {98, 41, 61})
 {
-    int triangleAmount = 360;
-    glBegin(GL_TRIANGLE_FAN);
-    glColor3ub(color.r, color.g, color.b);
-    glVertex2f(x, y); // center of circle
-    for (int i = 0; i <= 360; i++)
-        glVertex2f(x + (radius * cos(i * 2 * 3.1416 / triangleAmount)), y + (height * sin(i * 2 * 3.1416 / triangleAmount)));
-    glEnd();
-}
-
-void Car(float Tx = 0, float Ty = 0, float m = 1, Color boatSails = {58, 59, 95}, Color boatMast = {10, 24, 32}, Color boatBody = {98, 41, 61})
-{
-
     polygon({{Tx + m * 0.34, Ty + 14.87}, {Tx + m * 128.31, Ty + 14.87}, {Tx + m * 138.12, Ty + 20.12}, {Tx + m * 138.12, Ty + 8.16}, {Tx + m * 137.79, Ty + 6.26}, {Tx + m * 136.91, Ty + 3.95}, {Tx + m * 135.59, Ty + 2.48}, {Tx + m * 134.24, Ty + 1.43}, {Tx + m * 132.48, Ty + 0.87}, {Tx + m * 129.5, Ty + 0.38}, {Tx + m * 126.76, Ty + 0.11}, {Tx + m * 4.1, Ty + 0.11}, {Tx + m * 0.34, Ty + 14.87}}, boatBody);
-   circle(Tx + 40, Ty, 15, 15, {0, 0, 0});
-   circle(Tx + 100, Ty, 15, 15, {0, 0, 0});
+    triangle({{Tx + m * 62.27, Ty + 121.69}, {Tx + m * 2.06, Ty + 27.62}, {Tx + m * 62.27, Ty + 27.62}}, boatSails);
+    triangle({{Tx + m * 62.82, Ty + 163.64}, {Tx + m * 66.01, Ty + 14.48}, {Tx + m * 121.62, Ty + 47.07}}, boatSails);
+    triangle({{Tx + m * 62.82, Ty + 163.64}, {Tx + m * 44.85, Ty + 160.68}, {Tx + m * 62.8, Ty + 154.21}}, boatMast);
+    triangle({{Tx + m * 62.82, Ty + 163.64}, {Tx + m * 62.49, Ty + 13.76}, {Tx + m * 66.02, Ty + 13.79}}, boatMast);
 }
+/*---------------------------------------------------*/
 
 
 
-//Main function called
+
+
+
+
+
+
+
+///Main
 void display(){
-   glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(255.0,0.0,1.0);
+
+	sky();
+	water();
 	star();
-	 rightTillaL();
+	sun();
+    moon();
+    cloud1();
+    cloud2();
+    cloud3();
+    cloud4();
+    cloud5();
+    airPlane();
+    rightTillaL();
     rightWindmMill();
     rightBigHill1();
     rightBigHill2();
     rightTillaR();
-
+    rightHouse();
     leftTillaL1();
     leftHillBig();
     leftSmallHill();
     leftWindMill();
     leftTillaR();
-	water();
-    rightHouse();
     leftHouse();
+
     road();
     boatA();
     boatB();
-    Car(boatXX, 200, 1);
+
+
+    tree1();
+    tree2();
+    tree3();
+    tree4();
+    tree5();
+    tree6();
+    tree7();
+
+
+
+    boat(boatXX, 200, 1);
+
+
+
+
+
+
 	glFlush();
 }
 void init(void){
@@ -860,9 +1021,10 @@ void update(int value){
     if(pos1>980)pos1=-100;
     if(pos2>980)pos2=-100;
     pos1+=speed1;
+    boatSpeed += 5;
+    boatXX+=boatSpeed;
     pos2-=speed2;
-	boatXX+=50;
-    if(boatXX > 980) boatXX = 0;
+    ///Cloud Control
     if(cpos1>750)cpos1=-320;
     if(cpos2<-350)cpos2=650;
     if(cpos3>750)cpos3=-320;
@@ -873,20 +1035,65 @@ void update(int value){
     cpos3+=sp1;
     cpos4+=sp1;
     cpos5-=sp1;
+    ///Sun Control
+    if(sun_y>480){
+        sun_x=650;
+        sun_y=290;
+        //dayornight=0;
+    }
+    sun_x-=sp_x;
+    sun_y+=sp_y;
+    ///AirPlane Control
+    if(plane_x>1000){
+        plane_x=-100;
+    }
+    plane_x+=plane_speed;
+
     glutTimerFunc(100, update, 0);
+    glutPostRedisplay();
+
+}
+void windMill_start(){
+    spin+=0.1;
     glutPostRedisplay();
 }
 
-
+void handleMouse(int key, int state, int x, int y){
+    switch (key){
+        case GLUT_LEFT_BUTTON:
+            if (state == GLUT_DOWN){
+                glutIdleFunc(windMill_start);
+            }
+            break;
+        case GLUT_MIDDLE_BUTTON:
+            break;
+        case GLUT_RIGHT_BUTTON:
+            if (state == GLUT_DOWN){
+                glutIdleFunc(NULL);
+            }
+            break;
+        default:
+            break;
+    }
+}
 void keyboard(int key, int x, int y){
-
+	/*switch (key){
+        case GLUT_KEY_LEFT:
+            f=1;
+            break;
+        case GLUT_KEY_RIGHT:
+            f=0;
+            break;
+        //glutPostRedisplay();
+	}
+	glutPostRedisplay();*/
 	switch (key)
     {
     case GLUT_KEY_RIGHT:
-        if(f == 0) {
-            f = 1;
+        if(dayornight == 0) {
+            dayornight = 1;
         }else {
-            f = 0;
+            dayornight = 0;
         }
         glutPostRedisplay();
         break;
@@ -894,17 +1101,36 @@ void keyboard(int key, int x, int y){
         break;
     }
 }
+void credit(){
+
+    cout<<"------------------------------------------------------"<<endl;
+    cout<<"Computer Graphics- Final Project"<<endl;
+    cout<<"\t 1. Faisal Amin Abir [20-43206-1]"<<endl;
+    cout<<"\t 2. Neshat,Afrin Saidatun [21-44384-1]"<<endl;
+    cout<<"\t 3. Taiyaba Akther [20-43189-1]"<<endl;
+    cout<<"\t 4. Rahat Hasan Akanda [20-43133-1]"<<endl;
+
+    cout<<"------------------------------------------------------"<<endl;
+
+}
+
+
+
 int main(int argc, char** argv){
+    credit();
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(1900, 1900);
-	glutCreateWindow("CG Project- Marine Drive");
+	glutCreateWindow("CG Project- Smart Village");
 	init();
 	glutDisplayFunc(display);
-	glutIdleFunc(windMill_start);
-
     glutSpecialFunc(keyboard);
+    glutIdleFunc(windMill_start);
+    //f = 0;
+    // glutMouseFunc(handleMouse);
     glutTimerFunc(1000, update, 0);
     glutMainLoop();
 }
+
+
